@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emgg.eu.org</id>
     <title>二毛哥哥`blog</title>
-    <updated>2021-02-19T07:05:21.440Z</updated>
+    <updated>2021-02-19T07:33:46.767Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emgg.eu.org"/>
     <link rel="self" href="https://emgg.eu.org/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://emgg.eu.org/images/avatar.png</logo>
     <icon>https://emgg.eu.org/favicon.ico</icon>
     <rights>All rights reserved 2021, 二毛哥哥`blog</rights>
+    <entry>
+        <title type="html"><![CDATA[文件同步推荐:坚果云]]></title>
+        <id>https://emgg.eu.org/post/tl6JsZ1ou/</id>
+        <link href="https://emgg.eu.org/post/tl6JsZ1ou/">
+        </link>
+        <updated>2020-03-13T07:23:43.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[自制一个移动的监控-安卓实现mjpeg-streamer客户端APP]]></title>
         <id>https://emgg.eu.org/post/SWZTQnXJr/</id>
