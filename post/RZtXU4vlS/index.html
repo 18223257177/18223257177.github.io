@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>高效率图传mjpeg-streamer | 二毛哥哥`blog</title>
+<meta name="description" content="程序员][]&#39;;[]程序员```;[;.2`">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://emgg.eu.org/favicon.ico?v=1613716949950">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://emgg.eu.org/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://emgg.eu.org">
+        <img class="avatar" src="https://emgg.eu.org/images/avatar.png?v=1613716949950" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://emgg.eu.org">
+        <h1 class="site-title">二毛哥哥`blog</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">高效率图传mjpeg-streamer</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-02-03</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://emgg.eu.org/tag/w2Da1Bi4p/">
+                    Linux
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>项目地址:https://github.com/jacksonliam/mjpg-streamer<br/><br>
+mjpg-streamer是一款免费的视频流服务器,你可以用linux操作系统电脑或者树莓派+摄像头搭建家庭视频监控.下面简单介绍一下基于Debian X64的用法,其它大同小异:<br/><br>
+1.拉代码<br/><br>
+<code>git clone https://github.com/codewithpassion/mjpg-streamer.git</code><br/><br>
+2.进入项目目录<br/><br>
+<code>cd mjpg-streamer/mjpg-streamer/</code><br/><br>
+3.执行脚本编译<br/><br>
+<code>./start.sh</code>如果提示不能运行,先执行<code>chmod +x start.sh</code><br/><br>
+4.查看USB设备,看下摄像头有木有驱动(普通PC机的USB摄像头基本上都能直接驱动,树莓派或者mini2440之类的arm开发板,可能需要自己搞驱动)<br/><br>
+<code>ls /dev/video*</code>,执行完命令会有一个列表输出,如果提示 无法访问'/dev/video*': 没有那个文件或目录,那就说明摄像头没有去动起来(也有可能没插好,我开始就是)<br/><br>
+5.确保设备正常,启动开始输出<br/><br>
+<code>mjpg_streamer -i &quot;/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 30 -r 640x480&quot; -o &quot;/usr/local/lib/mjpg-streamer/output_http.so -p 19999 -w /usr/local/share/mjpg-streamer/www&quot;</code>这里的-p后面为端口号;-f帧;-r分辨率;<u>-w为默认的网页目录,也就是你打开浏览器看视频图像的页面存放路径,这个圈起来,后面要用到</u><br/><br>
+6.扩展<br/><br>
+使用后台命令,把这一段保存成一个sh脚本<code>nohup mjpg_streamer -i &quot;/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 30 -r 640x480&quot; -o &quot;/usr/local/lib/mjpg-streamer/output_http.so -p 19999 -w /usr/local/share/mjpg-streamer/www&quot; &amp;</code><br/><br>
+如果觉得它默认的页面不好看,自己做一个自适应页面,加上一个头部viewport,,再写一个安卓客户端配合webview,就能在手机上看监控了,核心也就一句<code>&lt;img style=&quot;width:100%;height:auto; id=&quot;streamimage&quot; src=&quot;./?action=stream&quot; /&gt;</code>,这些就不多说,百度一大把,把写好的网页放入上文所说的路径下面,http://ip:port/your-page-name.html <br/><br>
+外网访问的话,搞个zerotier就行了,在你的电脑,手机上分别安装,加入同一网络<br/><br>
+完事.有不懂的自己百度,那些什么驱动啊,lib啊,我因为都是现成的,所以直接跑就OK,或者你也可能如此顺利~</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://emgg.eu.org/post/jfCTTZeZS/">
+              <h3 class="post-title">
+                下一篇：chrome插件：开发工具箱
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">程序员][]';[]程序员```;[;.2`</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://emgg.eu.org/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '195dae1ab6cff0538145',
+        clientSecret: ' f69891f32efde166513bb753057ad849d5e6518e',
+        repo: 'emgg',
+        owner: '18223257177',
+        admin: ['18223257177'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

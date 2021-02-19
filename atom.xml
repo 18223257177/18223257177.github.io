@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emgg.eu.org</id>
     <title>二毛哥哥`blog</title>
-    <updated>2021-02-19T06:31:09.914Z</updated>
+    <updated>2021-02-19T06:42:35.505Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emgg.eu.org"/>
     <link rel="self" href="https://emgg.eu.org/atom.xml"/>
@@ -11,16 +11,38 @@
     <icon>https://emgg.eu.org/favicon.ico</icon>
     <rights>All rights reserved 2021, 二毛哥哥`blog</rights>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://emgg.eu.org/post/hello-gridea/</id>
-        <link href="https://emgg.eu.org/post/hello-gridea/">
+        <title type="html"><![CDATA[自制一个移动的监控-安卓实现mjpeg-streamer客户端APP]]></title>
+        <id>https://emgg.eu.org/post/SWZTQnXJr/</id>
+        <link href="https://emgg.eu.org/post/SWZTQnXJr/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></content>
+        <updated>2019-02-12T07:54:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[高效率图传mjpeg-streamer]]></title>
+        <id>https://emgg.eu.org/post/RZtXU4vlS/</id>
+        <link href="https://emgg.eu.org/post/RZtXU4vlS/">
+        </link>
+        <updated>2019-02-03T01:50:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[chrome插件：开发工具箱]]></title>
+        <id>https://emgg.eu.org/post/jfCTTZeZS/</id>
+        <link href="https://emgg.eu.org/post/jfCTTZeZS/">
+        </link>
+        <updated>2018-07-09T03:24:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[欢迎访问我的新博客]]></title>
+        <id>https://emgg.eu.org/post/huan-ying-fang-wen-wo-de-xin-bo-ke/</id>
+        <link href="https://emgg.eu.org/post/huan-ying-fang-wen-wo-de-xin-bo-ke/">
+        </link>
+        <updated>2018-06-14T13:55:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于我]]></title>
+        <id>https://emgg.eu.org/post/about/</id>
+        <link href="https://emgg.eu.org/post/about/">
+        </link>
+        <updated>2018-06-14T05:03:21.000Z</updated>
     </entry>
 </feed>
