@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>deepin-通过源代码修改dde-dock宽度 | EMGG的个人主页</title>
-<link rel="shortcut icon" href="https://imem.top/favicon.ico?v=1715648456116">
+<link rel="shortcut icon" href="https://imem.top/favicon.ico?v=1716858416365">
 <link href="//cdn.bootcdn.net/ajax/libs/remixicon/2.3.0/remixicon.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://imem.top/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="deepin-通过源代码修改dde-dock宽度 | EMGG的个人主页 - Atom Feed" href="https://imem.top/atom.xml">
@@ -24,7 +24,7 @@ sudo deepin-editor /etc/apt/sources...." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://imem.top">
-  <img class="avatar" src="https://imem.top/images/avatar.png?v=1715648456116" alt="">
+  <img class="avatar" src="https://imem.top/images/avatar.png?v=1716858416365" alt="">
   </a>
   <h1 class="site-title">
     EMGG的个人主页
@@ -105,7 +105,7 @@ sudo apt source dde-dock
 <p>下载好源码之后，cd到源码目录下。开始修改。<br>
 定位到frame/util/multiscreenworker.cpp文件，按截图所示，修改宽度。我只修改了dock栏在下方位置的宽度，如果在顶部的，可以修改posion:top那一段。setx表示左侧开始的位置，我以屏幕宽度的0.2倍距离，不够可以自己调。然后宽度，需要减去屏幕宽度的(0.2*2)也就是0.4倍，这个就不多解释了，稍微懂点css的应该就明白。<br>
 <img src="https://imem.top/post-images/1715217396809.png" alt="" loading="lazy"><br>
-然后，大概600多行，按图示的位置，也要相同修改，这个是隐藏效果下的宽度，不然显示隐藏的时候，会拉伸一下。<br>
+然后，大概1600多行，按图示的位置，也要相同修改，这个是隐藏效果下的宽度，不然显示隐藏的时候，会拉伸一下。<br>
 <img src="https://imem.top/post-images/1715217413010.png" alt="" loading="lazy"><br>
 到了这一步，你会发现，宽度变了，但是打开时尚模式，效果是这种：<br>
 <img src="https://imem.top/post-images/1715215167594.png" alt="" loading="lazy"><br>
