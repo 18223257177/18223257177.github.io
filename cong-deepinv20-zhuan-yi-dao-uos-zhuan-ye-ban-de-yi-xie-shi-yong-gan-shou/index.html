@@ -2,18 +2,19 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>定时任务@Scheduled参数简要说明 | EMGG的个人主页</title>
+<title>从deepinV20转移到UOS专业版的一些使用感受 | EMGG的个人主页</title>
 <link rel="shortcut icon" href="https://imem.top/favicon.ico?v=1721354326753">
 <link href="//cdn.bootcdn.net/ajax/libs/remixicon/2.3.0/remixicon.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://imem.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="定时任务@Scheduled参数简要说明 | EMGG的个人主页 - Atom Feed" href="https://imem.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="从deepinV20转移到UOS专业版的一些使用感受 | EMGG的个人主页 - Atom Feed" href="https://imem.top/atom.xml">
 <link rel="stylesheet" href="https://fonts.ews1.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="关于@Scheduled注解类，在org.springframework.scheduling.annotation包下面，感兴趣可以打开看看。主要用的参数就是initialDelay、fixedDelay、fixedRate、cron
-i..." />
-    <meta name="keywords" content="后端,Java" />
+    <meta name="description" content="首先是界面的整体动画，UOS更加的协调，柔顺，deepin给人的感觉是，顿一下，然后突然把堵塞的一下子释放出来。
+程序菜单：uos加载速度明显更快，开机首次打开程序菜单，没有任何卡顿。deepin首次打开会卡一下，感觉像是预加载未完成。
+d..." />
+    <meta name="keywords" content="Linux" />
     <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
   </head>
@@ -75,34 +76,31 @@ i..." />
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              定时任务@Scheduled参数简要说明
+              从deepinV20转移到UOS专业版的一些使用感受
             </h2>
             <div class="post-info">
               <span>
-                2020-11-05
+                2024-07-06
               </span>
               <span>
                 2 min read
               </span>
               
-                <a href="https://imem.top/--59byLV2/" class="post-tag">
-                  # 后端
-                </a>
-              
-                <a href="https://imem.top/4cLEFvpV1B/" class="post-tag">
-                  # Java
+                <a href="https://imem.top/HAneA0i7P1/" class="post-tag">
+                  # Linux
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content" v-pre>
-                <p>关于@Scheduled注解类，在org.springframework.scheduling.annotation包下面，感兴趣可以打开看看。主要用的参数就是initialDelay、fixedDelay、fixedRate、cron<br>
-<strong>initialDelay</strong> 看名字，初始用的，就是指在启动时，延迟执行的时间，单位是ms，源码默认值<code>long fixedDelay() default -1;</code>，此参数可不写，启动即执行。<br>
-<strong>fixedRate</strong>执行周期,单位ms，是指按照参数值指定的频率执行，时间周期是从上一次方法执行开始的时间算起，如果上一次方法阻塞住了，下一次便不会执行，但在阻塞这段时间会累计执行的次数，当不再阻塞时，直接全部执行后面的任务，执行完后，再按照固定频率继续执行。<br>
-<strong>fixedDelay</strong>跟前者一样，也是执行周期，但这个是以上一次方法执行完开始计算，如果上一次方法执行阻塞了，那么就一直等，直到上一次执行完，并在参数指定的间隔定后执行下一次。<br>
-<strong>cron</strong> 这个很明了，cron表达式，这个参数值是String。执行的方式是与fixedDelay相近的，也是按照上一次结束时间开始计算。<br>
-以上几个参数就是开发中常用的，其它的参数，可以打开源码自己研究研究。实践是检验真理的唯一标准！</p>
+                <p>首先是界面的整体动画，UOS更加的协调，柔顺，deepin给人的感觉是，顿一下，然后突然把堵塞的一下子释放出来。<br>
+程序菜单：uos加载速度明显更快，开机首次打开程序菜单，没有任何卡顿。deepin首次打开会卡一下，感觉像是预加载未完成。<br>
+dock栏：uos有一个程序托盘，所有的通知图标都收纳在里面（一开始我不知道可以直接拖出回来放到外面），比deepin多了一个快捷设置菜单。<br>
+然后就是兼容性，有几个商店下载的软件，在UOS中打不开，看日志是qt库版本低了，deepin没有这个问题，它qt版本高些。不知道后续会不会做兼容。<br>
+使用整体感受还是很不错的，常用软件都可以跟deepin一样，直接在商店下载，然后我是卸载了系统大部分软件，安全中心都给干掉了（ps：干掉这个之前，先进一次，把安装签名那个给关掉，不然后面还得自己搞一次命令）。服务支持这个得留着，激活用的。<br>
+去除桌面的UOS水印：<a href="https://bbs.chinauos.com/zh/post/18618">戳这里传送</a><br>
+最后再给个链接，uos专业版活动，注册成为开发者，可以免费获得uos专业版的授权！<a href="https://uosdn.uniontech.com/#document3?dirid=6646f769685f572b03c2ac71&amp;id=6646fa04685f572b03c2ac79">传送门</a></p>
 
               </div>
               <div class="toc-container">
@@ -115,9 +113,9 @@ i..." />
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://imem.top/远程遥控车-实时视频方案之WEBRTC/">
+            <a href="https://imem.top/deepin-tong-guo-yuan-dai-ma-xiu-gai-dde-dock-kuan-du/">
               <h3 class="post-title">
-                远程遥控车-实时视频方案之WEBRTC
+                deepin-通过源代码修改dde-dock宽度
               </h3>
             </a>
           </div>

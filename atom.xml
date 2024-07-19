@@ -2,13 +2,20 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://imem.top</id>
     <title>EMGG的个人主页</title>
-    <updated>2024-05-28T01:06:58.780Z</updated>
+    <updated>2024-07-19T01:59:04.889Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://imem.top"/>
     <link rel="self" href="https://imem.top/atom.xml"/>
     <logo>https://imem.top/images/avatar.png</logo>
     <icon>https://imem.top/favicon.ico</icon>
     <rights>All rights reserved 2024, EMGG的个人主页</rights>
+    <entry>
+        <title type="html"><![CDATA[从deepinV20转移到UOS专业版的一些使用感受]]></title>
+        <id>https://imem.top/cong-deepinv20-zhuan-yi-dao-uos-zhuan-ye-ban-de-yi-xie-shi-yong-gan-shou/</id>
+        <link href="https://imem.top/cong-deepinv20-zhuan-yi-dao-uos-zhuan-ye-ban-de-yi-xie-shi-yong-gan-shou/">
+        </link>
+        <updated>2024-07-06T01:47:56.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[deepin-通过源代码修改dde-dock宽度]]></title>
         <id>https://imem.top/deepin-tong-guo-yuan-dai-ma-xiu-gai-dde-dock-kuan-du/</id>
@@ -71,12 +78,5 @@
         <link href="https://imem.top/远程遥控车-实时视频方案之MediaCodec-H264硬编码、解码/">
         </link>
         <updated>2021-01-15T07:43:00.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[springboot定时任务不执行排查分析]]></title>
-        <id>https://imem.top/springboot定时任务不执行排查分析/</id>
-        <link href="https://imem.top/springboot定时任务不执行排查分析/">
-        </link>
-        <updated>2020-11-20T00:31:31.000Z</updated>
     </entry>
 </feed>
