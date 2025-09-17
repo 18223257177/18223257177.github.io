@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>远程遥控车-安卓实现远程实时视频功能方案分析 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="远程遥控车-安卓实现远程实时视频功能方案分析 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="疫情期间，在抖音上看到一位小姐姐远程操控小车车去买东西，还有实时画面，呀！这东西着实吸引了我，然后去网上搜了一下，买不起～不过咱可是科班出身，DIY那是强项。分析了一下，大概就是，利用4G网络，实时传输终端画面，控制端进行播放。恩，终端，可..." />
+    <meta name="keywords" content="安卓" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              远程遥控车-安卓实现远程实时视频功能方案分析
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-10-21
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://cqboy.top/JtW9dPWc18/" class="post-tag">
+                  # 安卓
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>疫情期间，在抖音上看到一位小姐姐远程操控小车车去买东西，还有实时画面，呀！这东西着实吸引了我，然后去网上搜了一下，买不起～不过咱可是科班出身，DIY那是强项。分析了一下，大概就是，利用4G网络，实时传输终端画面，控制端进行播放。恩，终端，可以用手机代替嘛，现在的安卓机，随随便便拿一个，传输点视频还是没啥压力的。至于控制终端，那简单，搞个开发板呢，ESP8266、或者高级点树莓派之类的。手机开个热点就完事了。<br>
+实践是检验真理的唯一标准！！！于是，我迈出了坚实的第一步，实现安卓视频实时传输，其实这个主流的方案，也就是RTSP推流到服务器，然后用户端进行播放就OK的。可是，服务器呢？？？要勤俭节约，所以，我打算不采用服务器，直接P2P。现在外网基本都穿透不了，怎么进行P2P呢？想起以前做NAS，搞得蒲公英VPN，这家伙，两个端安装上再同时连接，不就相当于在一个局域网了么。网络是搞定了，接下来就是安卓P2P视频了，这个一直卡了我好久，网上搜索了一大堆资料，基本上总结出以下方案：<br>
+（一）spydroid，这是一个开源项目，利用安卓手机摄像头采集视频，然后自身开启一个RTSP的服务器，自己推流给自己，其它设备就可以连接采集端进行播放了。<br>
+（二）自己想的，跟一差不多，只是把RTSP服务器放在了播放端设备，毕竟采集端只是个垃圾手机，性能方面差了点。<br>
+（三）WEBRTC，也是网上的开源项目，这东西貌似很多在用，用来进行多端视频通话的，也是基于P2P<br>
+（四）采集端通过摄像头回调帧数据，进行每一帧压缩透传，设备端按帧展示。<br>
+（五）跟第四差不多，只是透传数据换成了编码后的视频数据。<br>
+下面来说说各方案我所遇到的问题：<br>
+方案一、二，源码我也研究了几天，延迟太高了，也尝试修改源码试了一下，也要3秒的样子，开始以为是设备性能问题（我用了一台骁龙200的手机）。后面我换成了骁龙820、835,这性能也没用，还是差不多的延迟，看了一下源码，视频有两种编码方式，一个是使用Mediacodec，自己编码；还有一个是使用MediaRecorder安卓自带的API获取localsocket输入流的方式，我换成MediaRecorder这种测试了一下，延迟要稍微好一点，要快个半秒的样子，不过整体实时性也太差了。<br>
+方案三，这东西最开始搭了大半天，也能跑，不过不稳定，而且麻烦，需要信令服务器，我也尝试过直接在安卓上搭一个websocket服务器做信令服务器，不过我没有深入研究，网上安卓的资料太少，而且经常编码错误，不过实时性倒是很好，几乎看不出延迟。<br>
+方案四，恩，这个做起来也简单，不用编码，回调每一帧，压缩，通过TCP透传（也用UDP试过，实时性更好），不过这个传输流量太大了，实际根本不科学，那个蒲公英VPN只有1M带宽。<br>
+方案五，这个是我目前在研究的，发现的问题就是，使用mediacodec硬编码，透传过去后，无法播放，开始我以为是我编码写得不对，后面换成MediaRecorder再试了，还是不行，无法播放，后面查了一下，原来是需要PPS跟SPS，播放端拿不到这些信息，就播放不了。spydroid代码里面有提取sps跟pps的代码，我拿来试了还是不行，不知道问题出在哪儿，还差什么。后面继续研究这个方案，这个跟WEBRTC相似，准备参照webrtc流程综合起来再改改试试。<br>
+仅作个人开发过程真实记录，不代表准确与权威。哎，安卓还是太菜了点～努力</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/使用firefox提取AFH下载地址/">
+              <h3 class="post-title">
+                使用firefox提取AFH下载地址
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

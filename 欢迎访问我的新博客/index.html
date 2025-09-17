@@ -1,0 +1,151 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>欢迎访问我的新博客 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="欢迎访问我的新博客 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="之前做过不少博客，都荒废了，这段时间，趁着空闲，又重新搭了一个,可惜了之前的文章都不在了,忘了备份.无所谓了,反正都是随记.
+多多指教，后面所有笔记都会发往这儿
+" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              欢迎访问我的新博客
+            </h2>
+            <div class="post-info">
+              <span>
+                2018-06-14
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>之前做过不少博客，都荒废了，这段时间，趁着空闲，又重新搭了一个,可惜了之前的文章都不在了,忘了备份.无所谓了,反正都是随记.</p>
+<p>多多指教，后面所有笔记都会发往这儿</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

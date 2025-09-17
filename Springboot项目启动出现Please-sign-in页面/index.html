@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Springboot项目启动出现Please sign in页面 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Springboot项目启动出现Please sign in页面 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="今天给同事写一个小工具，把以前的项目扒出来，写了几段代码。启动，打开浏览器，嗯？怎么出现了这页面。
+
+一番搜索发现，原来这个是整合了security，然后又没有配置，所以才会出现这个页面。
+解决方法就是：删除相关依赖。或者在启动类添加注解排..." />
+    <meta name="keywords" content="后端,Java" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Springboot项目启动出现Please sign in页面
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-11
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://cqboy.top/--59byLV2/" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://cqboy.top/4cLEFvpV1B/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>今天给同事写一个小工具，把以前的项目扒出来，写了几段代码。启动，打开浏览器，嗯？怎么出现了这页面。<br>
+<img src="https://cqboy.top/post-images/1630654795618.png" alt="" loading="lazy"><br>
+一番搜索发现，原来这个是整合了security，然后又没有配置，所以才会出现这个页面。<br>
+解决方法就是：删除相关依赖。或者在启动类添加注解排除相关类：<code>@SpringBootApplication(exclude = {SecurityAutoConfiguration.class,SecurityFilterAutoConfiguration.class})</code></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/对redis雪崩、穿透、击穿的浅解/">
+              <h3 class="post-title">
+                对redis雪崩、穿透、击穿的浅解
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

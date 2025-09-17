@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>对redis雪崩、穿透、击穿的浅解 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="对redis雪崩、穿透、击穿的浅解 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="首先来说说雪崩，顾名思义，就是崩了，在一些高并发场景下，同时去请求了很多的key，而这些key都在缓存中找不到（都失效了呗），导致全部跑去数据库查询，而数据库又扛不住，这一下子就崩盘了。了解到了它的来龙去脉，就要针对性下药了，缓存为什么都失..." />
+    <meta name="keywords" content="后端,redis" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              对redis雪崩、穿透、击穿的浅解
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-10-10
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://cqboy.top/--59byLV2/" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://cqboy.top/gR8skajmh1/" class="post-tag">
+                  # redis
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>首先来说说<strong>雪崩</strong>，顾名思义，就是崩了，在一些高并发场景下，同时去请求了很多的key，而这些key都在缓存中找不到（都失效了呗），导致全部跑去数据库查询，而数据库又扛不住，这一下子就崩盘了。了解到了它的来龙去脉，就要针对性下药了，缓存为什么都失效了？还不是因为你都是10分钟呐或者5分钟超时，在某一个时间节点，自然都失效了，为了避免同时失效，我们就需要把失效的时间错开（类似春运错峰，一个道理），设置不一样的缓存过期时间，这样就能有效避免上述情况了;另外还可以设置ehcache缓存呀，反正能尽量给数据库分担一些压力。<br>
+<strong>击穿</strong>，恩，这个就是说，在某一个位置凿了一个洞，然后就进去了，用稍微专业一点词汇来说，就是指：某一个缓存key，访问非常高频，然后打穿了（缓存到期了），直接去到了数据库。这个解决方法，简单粗暴的话，就是设置缓存永不过期（根据实际业务需求，在key访问频率低的情况下进行更新）。然后我在网上搜索，还有一种就是加锁，但是考虑到实际业务我没用过这种，感兴趣可以自己搜一搜。<br>
+<strong>穿透</strong>，这个就是说，查询某一条数据，在缓存中没有，然后按照逻辑，又去数据库查询，结果数据库也没有。有想搞你的人，就会利用这点，一直大量请求，从而整跨你的数据库。<br>
+这种的话，要么就是改一下业务逻辑。即使没查询到数据，也给缓存中设置一条空数据，这样的话，下次拿数据就可以直接走缓存了，或者根据实际业务逻辑，前置参数校验，比如查询某条数据，参数传了个ID=0，这样的显然没有数据，就可以提前通过参数校验，直接返回了，根本不用再进行后面业务。<br>
+以上就是我自己对这三者的一些理解，有遗漏或者不恰当的还请指教。</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/自制一个移动的监控-安卓实现mjpeg-streamer客户端APP/">
+              <h3 class="post-title">
+                自制一个移动的监控-安卓实现mjpeg-streamer客户端APP
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>使用firefox提取AFH下载地址 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="使用firefox提取AFH下载地址 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="此篇仅限于个人记录，如果你连AFH都不知道，请back～
+首先，火狐下载扩展Redirector，如下图
+重点来了!
+1.点击扩展菜单：Edit Redirects,打开编辑页面。
+2.点击Create new redirect,在弹出菜单..." />
+    <meta name="keywords" content="安卓" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              使用firefox提取AFH下载地址
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-09-06
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/JtW9dPWc18/" class="post-tag">
+                  # 安卓
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>此篇仅限于个人记录，如果你连AFH都不知道，请back～<br>
+首先，火狐下载扩展Redirector，如下图<img src="https://cqboy.top/post-images/1630896148954.png" alt="" loading="lazy"><br>
+重点来了!<br>
+1.点击扩展菜单：Edit Redirects,打开编辑页面。<br>
+2.点击Create new redirect,在弹出菜单中，添加如下规则：<img src="https://cqboy.top/post-images/1630896461313.png" alt="" loading="lazy"><br>
+3.为了更好的偷懒，我把规则导出，可以自行保存为“.json”文件，在页面直接进行Import</p>
+<pre><code class="language-json">{
+    &quot;createdBy&quot;: &quot;Redirector v3.5.3&quot;,
+    &quot;createdAt&quot;: &quot;2020-09-06T02:48:32.107Z&quot;,
+    &quot;redirects&quot;: [
+        {
+            &quot;description&quot;: &quot;Example redirect, try going to http://example.com/anywordhere&quot;,
+            &quot;exampleUrl&quot;: &quot;http://example.com/some-word-that-matches-wildcard&quot;,
+            &quot;exampleResult&quot;: &quot;https://google.com/search?q=some-word-that-matches-wildcard&quot;,
+            &quot;error&quot;: null,
+            &quot;includePattern&quot;: &quot;http://example.com/*&quot;,
+            &quot;excludePattern&quot;: &quot;&quot;,
+            &quot;patternDesc&quot;: &quot;Any word after example.com leads to google search for that word.&quot;,
+            &quot;redirectUrl&quot;: &quot;https://google.com/search?q=$1&quot;,
+            &quot;patternType&quot;: &quot;W&quot;,
+            &quot;processMatches&quot;: &quot;noProcessing&quot;,
+            &quot;disabled&quot;: false,
+            &quot;grouped&quot;: false,
+            &quot;appliesTo&quot;: [
+                &quot;main_frame&quot;
+            ]
+        },
+        {
+            &quot;description&quot;: &quot;ajax&quot;,
+            &quot;exampleUrl&quot;: &quot;http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&quot;,
+            &quot;exampleResult&quot;: &quot;http://ajax.lug.ustc.edu.cn/ajax/libs/jquery/1.7.1/jquery.min.js&quot;,
+            &quot;error&quot;: null,
+            &quot;includePattern&quot;: &quot;*ajax.googleapis.com*&quot;,
+            &quot;excludePattern&quot;: &quot;&quot;,
+            &quot;patternDesc&quot;: &quot;&quot;,
+            &quot;redirectUrl&quot;: &quot;$1ajax.lug.ustc.edu.cn$2&quot;,
+            &quot;patternType&quot;: &quot;W&quot;,
+            &quot;processMatches&quot;: &quot;noProcessing&quot;,
+            &quot;disabled&quot;: false,
+            &quot;grouped&quot;: false,
+            &quot;appliesTo&quot;: [
+                &quot;script&quot;
+            ]
+        }
+    ]
+}
+</code></pre>
+<p>然后进入AFH下载页，点击click here to start download,稍等片刻，就会出现一个下载地址。然后右键，复制链接地址，使用多线程下载工具进行下载（推荐IDM）。 OK，完事儿！</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/mybatis的NoSuchMethodException异常是怎么回事/">
+              <h3 class="post-title">
+                mybatis的NoSuchMethodException异常是怎么回事
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

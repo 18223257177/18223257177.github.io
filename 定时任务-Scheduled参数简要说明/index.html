@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>定时任务@Scheduled参数简要说明 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="定时任务@Scheduled参数简要说明 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="关于@Scheduled注解类，在org.springframework.scheduling.annotation包下面，感兴趣可以打开看看。主要用的参数就是initialDelay、fixedDelay、fixedRate、cron
+i..." />
+    <meta name="keywords" content="后端,Java" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              定时任务@Scheduled参数简要说明
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-05
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://cqboy.top/--59byLV2/" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://cqboy.top/4cLEFvpV1B/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>关于@Scheduled注解类，在org.springframework.scheduling.annotation包下面，感兴趣可以打开看看。主要用的参数就是initialDelay、fixedDelay、fixedRate、cron<br>
+<strong>initialDelay</strong> 看名字，初始用的，就是指在启动时，延迟执行的时间，单位是ms，源码默认值<code>long fixedDelay() default -1;</code>，此参数可不写，启动即执行。<br>
+<strong>fixedRate</strong>执行周期,单位ms，是指按照参数值指定的频率执行，时间周期是从上一次方法执行开始的时间算起，如果上一次方法阻塞住了，下一次便不会执行，但在阻塞这段时间会累计执行的次数，当不再阻塞时，直接全部执行后面的任务，执行完后，再按照固定频率继续执行。<br>
+<strong>fixedDelay</strong>跟前者一样，也是执行周期，但这个是以上一次方法执行完开始计算，如果上一次方法执行阻塞了，那么就一直等，直到上一次执行完，并在参数指定的间隔定后执行下一次。<br>
+<strong>cron</strong> 这个很明了，cron表达式，这个参数值是String。执行的方式是与fixedDelay相近的，也是按照上一次结束时间开始计算。<br>
+以上几个参数就是开发中常用的，其它的参数，可以打开源码自己研究研究。实践是检验真理的唯一标准！</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/远程遥控车-实时视频方案之WEBRTC/">
+              <h3 class="post-title">
+                远程遥控车-实时视频方案之WEBRTC
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

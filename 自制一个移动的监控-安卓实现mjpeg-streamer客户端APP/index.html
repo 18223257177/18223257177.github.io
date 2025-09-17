@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>自制一个移动的监控-安卓实现mjpeg-streamer客户端APP | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="自制一个移动的监控-安卓实现mjpeg-streamer客户端APP | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="前文章提到,用mjpeg-streamer做视频服务器,于是乎,就想弄一个随时可以看的APP出来,利用安卓的webview,再配合HTML嵌入imgsrc,一个像模像样的客户端就出来了.
+主要部分代码
+    private void in..." />
+    <meta name="keywords" content="安卓" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              自制一个移动的监控-安卓实现mjpeg-streamer客户端APP
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-02-12
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/JtW9dPWc18/" class="post-tag">
+                  # 安卓
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>前文章提到,用mjpeg-streamer做视频服务器,于是乎,就想弄一个随时可以看的APP出来,利用安卓的webview,再配合HTML嵌入imgsrc,一个像模像样的客户端就出来了.<br>
+主要部分代码</p>
+<pre><code class="language-html">    private void initWebView(){
+        ip=&quot;http://172.9.19.10:8080/?action=stream&quot;
+        Log.d(TAG,ip);
+		//准备一个html页面,这里可以做成文件读取.
+        html=&quot;&lt;!DOCTYPE html PUBLIC \&quot;-//W3C//DTD XHTML 1.1//EN\&quot;\&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\&quot;&gt;&lt;html xmlns=\&quot;http://www.w3.org/1999/xhtml\&quot; xml:lang=\&quot;en\&quot;&gt;&lt;head&gt;&lt;title&gt;MJPG-streamer&lt;/title&gt;&lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\&quot; /&gt;&lt;meta http-equiv=\&quot;content-type\&quot; content=\&quot;text/html; charset=iso-8859-1\&quot; /&gt;&lt;/head&gt;&lt;body align=\&quot;center\&quot; style=\&quot;background:black;margin:0px;padding:0px;\&quot;&gt;&lt;img style=\&quot;width:100%;height:auto; id=\&quot;streamimage\&quot; src=\&quot;&quot;+ip+&quot;\&quot; /&gt;&lt;/body&gt;&lt;/html&gt;&quot;;
+        webView = (WebView) findViewById(R.id.webview);
+        //加载HTML字符内容,由加载出来的网页img标签展示网络视频画面
+        webView.loadDataWithBaseURL(&quot;&quot;, html, &quot;text/html&quot;,&quot;UTF-8&quot;, &quot;&quot;);
+        webView.setWebViewClient(webViewClient);
+        WebSettings webSettings=webView.getSettings();
+        //允许使用js,可以不设置
+        webSettings.setJavaScriptEnabled(true);
+        //防止乱码
+        webSettings.setDefaultTextEncodingName(&quot;UTF-8&quot;);
+        /**
+         * LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
+         * LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
+         * LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
+         * LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
+         */
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据.
+        //不需要屏幕缩放
+        webSettings.setSupportZoom(false);
+        webSettings.setDisplayZoomControls(false);
+        //支持viewport属性
+        webSettings.setUseWideViewPort(true);
+    }
+</code></pre>
+<p>OK,打包运行,效果就出来了,还可以配个按钮,做个刷新</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/高效率图传mjpeg-streamer/">
+              <h3 class="post-title">
+                高效率图传mjpeg-streamer
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

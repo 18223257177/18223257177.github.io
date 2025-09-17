@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>记录一下，rabbitmq重复消费问题 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="记录一下，rabbitmq重复消费问题 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="前段时间，在portainer看调试日志，发现一个问题，一个业务插入了两条数据。我滴个乖乖，这还得了，赶紧排查(dev环境_);
+赶紧看代码，找业务逻辑，整体流程是：前端数据上传-&gt;入队-&gt;mq消费-&gt;入库；然后看入库部分..." />
+    <meta name="keywords" content="后端,Java" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              记录一下，rabbitmq重复消费问题
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-11-04
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/--59byLV2/" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://cqboy.top/4cLEFvpV1B/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>前段时间，在portainer看调试日志，发现一个问题，一个业务插入了两条数据。我滴个乖乖，这还得了，赶紧排查(<strong>dev环境<sub>_</sub></strong>);<br>
+赶紧看代码，找业务逻辑，整体流程是：<strong>前端数据上传-&gt;入队-&gt;mq消费-&gt;入库</strong>；然后看入库部分的代码逻辑是没问题的；但是走了MQ，就考虑到了可能是重复消费了。<br>
+借此记录一下，关于重复消费问题以及我的解决办法。鄙人不擅长组织语言，经过一些资料查找(万能的百度)，总结了一下网络大神的专业解释：<br>
+1.生产者在发送消息给mq时，由于网络波动，可能导致生产者收不到mq的应答，这时候，生产者会再次发送消息。<br>
+2.同样的，mq在把消息给到消费者时，网络波动，mq没有收到消费者的应答，mq就会再次发送给消费者。<br>
+3.多消费者，如果未配置消费组，同样可能导致重复消费。<br>
+接下来说说我的解决方案，重复消费，最终导致的问题就是产生了重复数据，那何不再产生数据的时候，确定数据的唯一性。由于是大批量的数据，不可能用数据库的唯一约束来保证，那就从业务处入手。论一台机器什么读写最快？当然是内存，MQ终究是网络传输，速度能快得过内存？<br>
+说到内存，那就是首先选redis，利用redis设置一个唯一标识，作为锁，redis直接在消费开始时，判断是否锁已经存在，如果存在则跳过本次业务，否则上锁，业务处理完毕，释放锁。<br>
+放一段code思路：</p>
+<pre><code class="language-java">//加锁，超时视情况酌情而定
+ public boolean getLock(String lockId, long timeout) {
+   Boolean success = redisTemplate.opsForValue().setIfAbsent(lockId, &quot;lock&quot;,timeout, TimeUnit.SECONDS);
+   return success != null &amp;&amp; success;
+ }
+ //释放锁
+ public void releaseLock(String lockId) {
+	redisTemplate.delete(lockId);
+ }
+ -------------------业务中----------------------
+ if(getLock(&quot;uni-key&quot;,3)){
+   try{
+    	//TODO
+   }catch(Exception e){
+   	releaseLock(&quot;uni-key&quot;);
+   }finally{
+   	releaseLock(&quot;uni-key&quot;);
+   }
+ }
+</code></pre>
+<p>有想法或建议，欢迎讨论、指正~</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/hexo-admin插件使用报错：Error-Function-yaml-safeLoad-is-removed-in-js-yaml-4-1/">
+              <h3 class="post-title">
+                hexo-admin新建文章报错：Error: Function yaml.safeLoad is removed in js-yaml 4
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>远程遥控车-实时视频方案之WEBRTC | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="远程遥控车-实时视频方案之WEBRTC | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="在之前，我研究实时视频踩了太多坑，没办法，没有这方面经验。不过在经过大量的实践之后，从难易程度、实时性、可扩展性、资源占用等多方面对比，最终还是选择了webrtc
+下面简单记录一下思路，webrtc整个流程就不说了，网上有现成代码，主要说说..." />
+    <meta name="keywords" content="安卓" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              远程遥控车-实时视频方案之WEBRTC
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-04
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/JtW9dPWc18/" class="post-tag">
+                  # 安卓
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>在之前，我研究实时视频踩了太多坑，没办法，没有这方面经验。不过在经过大量的实践之后，从难易程度、实时性、可扩展性、资源占用等多方面对比，最终还是选择了webrtc<br>
+下面简单记录一下思路，webrtc整个流程就不说了，网上有现成代码，主要说说其它的：<br>
+1.信令服务器，我在安卓采集端创建了一个简单的WebSocketServer，实现信令交换。然后在启动时，本机自动连接localhost，注册固定用户，另外一台设备启动输入IP，连接，交换信令实现通信。<br>
+2.单向视频，我用的google的webrtc库，然后网上扒拉一堆初始化代码下来，跑起来发现是个微信式的视频通话界面。这肯定不符合我的需求啊，于是开始着手删减，先是从界面开始砍，采集端为了节省资源，不做任何显示，于是乎，xml布局直接删除了相关的surface，然后接收端不显示自己的画面，只显示远端画面，这里直接不将localview添加进去。但是，我发现，其实播放端还是在往采集端传输视频数据，这也不行呀，带宽就1M，能省就省，于是，开始从初始化开始砍，我尝试在播放端addTrack时，只添加audio，不过不行，这样交换信令时，另一端也不会给video数据过来，导致全程黑屏聊天。这尼玛，不科学，网上搜了一下Firefox的文档，发现有个MediaConstrainsts,在交换信令时会用到它，里面有个参数叫：OfferToReceiveVideo，Firefox对它的描述：<code>传统的布尔选项，用于控制是否向远程对等方提供尝试发送视频的机会。 如果此值为false，即使本地端将发送视频数据，也不会提供远程端点发送视频数据。 如果此值为true，即使本地端将不发送视频数据，也将向远程端点发送视频数据。 默认行为是仅在本地端正在发送视频时才提供接收视频，否则不提供。 为了在现代实现中模拟这种行为，该成员的值为false将设置所有现有视频收发器的方向以排除接收（即设置为“仅发送”或“无效”）。 在现代实现中，该成员的值为true的存在将确保至少有一个收发器集可以接收尚未停止的视频，如果没有，则将创建一个。</code><br>
+看了一下，大概应该是这么个意思吧，然后就用了这个，还没有进一步测试，不知道对不对。暂时先搁置。有知道朋友麻烦说一下</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/远程遥控车-安卓实现远程实时视频功能方案分析/">
+              <h3 class="post-title">
+                远程遥控车-安卓实现远程实时视频功能方案分析
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

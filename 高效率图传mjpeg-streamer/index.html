@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>高效率图传mjpeg-streamer | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="高效率图传mjpeg-streamer | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="项目地址:https://github.com/jacksonliam/mjpg-streamer
+mjpg-streamer是一款免费的视频流服务器,你可以用linux操作系统电脑或者树莓派+摄像头搭建家庭视频监控.下面简单介绍一下基于D..." />
+    <meta name="keywords" content="Linux" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              高效率图传mjpeg-streamer
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-02-03
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/HAneA0i7P1/" class="post-tag">
+                  # Linux
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>项目地址:https://github.com/jacksonliam/mjpg-streamer</p>
+<p>mjpg-streamer是一款免费的视频流服务器,你可以用linux操作系统电脑或者树莓派+摄像头搭建家庭视频监控.下面简单介绍一下基于Debian X64的用法,其它大同小异:</p>
+<p>1.拉代码</p>
+<p><code>git clone https://github.com/codewithpassion/mjpg-streamer.git</code></p>
+<p>2.进入项目目录</p>
+<p><code>cd mjpg-streamer/mjpg-streamer/</code></p>
+<p>3.执行脚本编译</p>
+<p><code>./start.sh</code>如果提示不能运行,先执行<code>chmod +x start.sh</code></p>
+<p>4.查看USB设备,看下摄像头有木有驱动(普通PC机的USB摄像头基本上都能直接驱动,树莓派或者mini2440之类的arm开发板,可能需要自己搞驱动)</p>
+<p><code>ls /dev/video*</code>,执行完命令会有一个列表输出,如果提示 无法访问'/dev/video*': 没有那个文件或目录,那就说明摄像头没有去动起来(也有可能没插好,我开始就是)</p>
+<p>5.确保设备正常,启动开始输出</p>
+<p><code>mjpg_streamer -i &quot;/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 30 -r 640x480&quot; -o &quot;/usr/local/lib/mjpg-streamer/output_http.so -p 19999 -w /usr/local/share/mjpg-streamer/www&quot;</code>这里的-p后面为端口号;-f帧;-r分辨率;-w为默认的网页目录,也就是你打开浏览器看视频图像的页面存放路径,这个圈起来,后面要用到</p>
+<p>6.扩展</p>
+<p>使用后台命令,把这一段保存成一个sh脚本<code>nohup mjpg_streamer -i &quot;/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 30 -r 640x480&quot; -o &quot;/usr/local/lib/mjpg-streamer/output_http.so -p 19999 -w /usr/local/share/mjpg-streamer/www&quot; &amp;</code></p>
+<p>如果觉得它默认的页面不好看,自己做一个自适应页面,加上一个头部viewport,,再写一个安卓客户端配合webview,就能在手机上看监控了,核心也就一句<code>&lt;img style=&quot;width:100%;height:auto; id=&quot;streamimage&quot; src=&quot;./?action=stream&quot; /&gt;</code>,这些就不多说,百度一大把,把写好的网页放入上文所说的路径下面,http://ip:port/your-page-name.html</p>
+<p>外网访问的话,搞个zerotier就行了,在你的电脑,手机上分别安装,加入同一网络</p>
+<p>完事.有不懂的自己百度,那些什么驱动啊,lib啊,我因为都是现成的,所以直接跑就OK,或者你也可能如此顺利~</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/chrome插件：开发工具箱/">
+              <h3 class="post-title">
+                chrome插件：开发工具箱
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

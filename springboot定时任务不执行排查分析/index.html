@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>springboot定时任务不执行排查分析 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="springboot定时任务不执行排查分析 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="一顿操作猛如虎，写完一跑，我XXX，怎么不执行。接下来，就来分析一下，定时任务不执行的原因排查：
+1.首先，检查Application是否有@EnableScheduling注解，@ComponentScan扫描的包是否有定时任务所在的包。..." />
+    <meta name="keywords" content="后端,Java" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              springboot定时任务不执行排查分析
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-11-20
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://cqboy.top/--59byLV2/" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://cqboy.top/4cLEFvpV1B/" class="post-tag">
+                  # Java
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>一顿操作猛如虎，写完一跑，我XXX，怎么不执行。接下来，就来分析一下，定时任务不执行的原因排查：<br>
+1.首先，检查Application是否有@EnableScheduling注解，@ComponentScan扫描的包是否有定时任务所在的包。<br>
+2.检查定时任务类是否有@Component注解<br>
+3.检查定时任务类是否有@EnableScheduling注解<br>
+4.检查定时任务方法是否有@Scheduled注解，且注解参数配置正确，具体参数介绍可以看这边文章<a href="/2020/11/05/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-Scheduled%E5%8F%82%E6%95%B0%E7%AE%80%E8%A6%81%E8%AF%B4%E6%98%8E/">定时任务@Scheduled参数简要说明</a><br>
+5.定时任务的编写，要求定是任务的方法不能有参数，不能有返回值，且类中没有其它带注解的方法。</p>
+<p>大概就是这样，逐一排查，就能找到不执行的原因了。</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/定时任务-Scheduled参数简要说明/">
+              <h3 class="post-title">
+                定时任务@Scheduled参数简要说明
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

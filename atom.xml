@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cqboy.top</id>
+    <title>zzq的个人主页</title>
+    <updated>2025-09-17T07:37:14.967Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://cqboy.top"/>
+    <link rel="self" href="https://cqboy.top/atom.xml"/>
+    <logo>https://cqboy.top/images/avatar.png</logo>
+    <icon>https://cqboy.top/favicon.ico</icon>
+    <rights>All rights reserved 2025, zzq的个人主页</rights>
+    <entry>
+        <title type="html"><![CDATA[MacOS禁止系统更新，屏蔽小红点]]></title>
+        <id>https://cqboy.top/macos-jin-zhi-xi-tong-geng-xin-ping-bi-xiao-hong-dian/</id>
+        <link href="https://cqboy.top/macos-jin-zhi-xi-tong-geng-xin-ping-bi-xiao-hong-dian/">
+        </link>
+        <updated>2025-07-01T23:29:30.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[从deepinV20转移到UOS专业版的一些使用感受]]></title>
+        <id>https://cqboy.top/cong-deepinv20-zhuan-yi-dao-uos-zhuan-ye-ban-de-yi-xie-shi-yong-gan-shou/</id>
+        <link href="https://cqboy.top/cong-deepinv20-zhuan-yi-dao-uos-zhuan-ye-ban-de-yi-xie-shi-yong-gan-shou/">
+        </link>
+        <updated>2024-07-06T01:47:56.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[deepin-通过源代码修改dde-dock宽度]]></title>
+        <id>https://cqboy.top/deepin-tong-guo-yuan-dai-ma-xiu-gai-dde-dock-kuan-du/</id>
+        <link href="https://cqboy.top/deepin-tong-guo-yuan-dai-ma-xiu-gai-dde-dock-kuan-du/">
+        </link>
+        <updated>2024-05-09T00:28:27.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Find X 全网通普通版本解锁相关资源链接]]></title>
+        <id>https://cqboy.top/find-x-quan-wang-tong-pu-tong-ban-ben-jie-suo-xiang-guan-zi-yuan-lian-jie/</id>
+        <link href="https://cqboy.top/find-x-quan-wang-tong-pu-tong-ban-ben-jie-suo-xiang-guan-zi-yuan-lian-jie/">
+        </link>
+        <updated>2023-10-08T11:27:15.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于IOS端js日期的坑]]></title>
+        <id>https://cqboy.top/guan-yu-ios-duan-js-ri-qi-de-keng/</id>
+        <link href="https://cqboy.top/guan-yu-ios-duan-js-ri-qi-de-keng/">
+        </link>
+        <updated>2022-09-21T02:33:33.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[记录一下，rabbitmq重复消费问题]]></title>
+        <id>https://cqboy.top/记录一下，rabbitmq重复消费问题/</id>
+        <link href="https://cqboy.top/记录一下，rabbitmq重复消费问题/">
+        </link>
+        <updated>2021-11-04T07:10:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[hexo-admin新建文章报错：Error: Function yaml.safeLoad is removed in js-yaml 4]]></title>
+        <id>https://cqboy.top/hexo-admin插件使用报错：Error-Function-yaml-safeLoad-is-removed-in-js-yaml-4-1/</id>
+        <link href="https://cqboy.top/hexo-admin插件使用报错：Error-Function-yaml-safeLoad-is-removed-in-js-yaml-4-1/">
+        </link>
+        <updated>2021-08-27T08:27:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[cnpm安装依赖报Error：Cannot find module fs/promises]]></title>
+        <id>https://cqboy.top/cnpm安装依赖报“Error：Cannot-find-module-‘fs-promises”/</id>
+        <link href="https://cqboy.top/cnpm安装依赖报“Error：Cannot-find-module-‘fs-promises”/">
+        </link>
+        <updated>2021-08-22T01:17:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Java11的String.isBlank()]]></title>
+        <id>https://cqboy.top/关于Java11的String-isBlank/</id>
+        <link href="https://cqboy.top/关于Java11的String-isBlank/">
+        </link>
+        <updated>2021-05-21T23:58:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[使用portainer-agent配置管理多个节点]]></title>
+        <id>https://cqboy.top/使用portainer-agent管理多个节点/</id>
+        <link href="https://cqboy.top/使用portainer-agent管理多个节点/">
+        </link>
+        <updated>2021-03-22T13:09:12.000Z</updated>
+    </entry>
+</feed>

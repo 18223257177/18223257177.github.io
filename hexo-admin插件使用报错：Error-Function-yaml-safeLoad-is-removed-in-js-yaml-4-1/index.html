@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>hexo-admin新建文章报错：Error: Function yaml.safeLoad is removed in js-yaml 4 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="hexo-admin新建文章报错：Error: Function yaml.safeLoad is removed in js-yaml 4 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="今天在写博客时，发现新建文章一直Loading，目测是报错了，打开日志一看果然，提示：Error: Function yaml.safeLoad is removed in js-yaml 4. Use yaml.load instead,..." />
+    <meta name="keywords" content="nodejs" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              hexo-admin新建文章报错：Error: Function yaml.safeLoad is removed in js-yaml 4
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-08-27
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://cqboy.top/w1dos8LGd/" class="post-tag">
+                  # nodejs
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>今天在写博客时，发现新建文章一直Loading，目测是报错了，打开日志一看果然，提示：<strong>Error: Function yaml.safeLoad is removed in js-yaml 4. Use yaml.load instead, which is now safe by default.</strong><br>
+大概就是这么个意思：<strong>safeLoad</strong>这个函数在js-yaml4这个版本已经被移除了，使用<strong>load</strong>替代。</p>
+<p>看懂了然后就好办了，根据错误日志：<code> at getSettings (F:\imem-blog\node_modules\_hexo-admin@2.3.0@hexo-admin\api.js:44:26)</code><br>
+定位到报错行44行，发现使用的果然是<strong>yaml.safeLoad</strong>,把它修改成<strong>yaml.load</strong>，ok重启hexo，打开后台再次新建文章，搞定！</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/cnpm安装依赖报“Error：Cannot-find-module-‘fs-promises”/">
+              <h3 class="post-title">
+                cnpm安装依赖报Error：Cannot find module fs/promises
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

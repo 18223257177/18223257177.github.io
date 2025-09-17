@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>deepin-通过源代码修改dde-dock宽度 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="deepin-通过源代码修改dde-dock宽度 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="这几天，用了一下deepin操作系统，放弃了archlinux。主要是我觉得这个开箱即用挺好。
+现在，我的桌面栏是这个样子的：
+首先，需要下载dde-dock的源码：
+sudo deepin-editor /etc/apt/sources...." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              deepin-通过源代码修改dde-dock宽度
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-05-09
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>这几天，用了一下deepin操作系统，放弃了archlinux。主要是我觉得这个开箱即用挺好。<br>
+现在，我的桌面栏是这个样子的：<img src="https://cqboy.top/post-images/1715216755719.png" alt="" loading="lazy"><br>
+首先，需要下载dde-dock的源码：</p>
+<pre><code>sudo deepin-editor /etc/apt/sources.list
+</code></pre>
+<p>将deb-src前面的注释去掉，然后sudo apt update<br>
+接下来，准备好工具和源码：</p>
+<pre><code>sudo apt install devscripts
+sudo apt build-dep dde-dock
+sudo apt source dde-dock
+</code></pre>
+<p>下载好源码之后，cd到源码目录下。开始修改。<br>
+定位到frame/util/multiscreenworker.cpp文件，按截图所示，修改宽度。我只修改了dock栏在下方位置的宽度，如果在顶部的，可以修改posion:top那一段。setx表示左侧开始的位置，我以屏幕宽度的0.2倍距离，不够可以自己调。然后宽度，需要减去屏幕宽度的(0.2*2)也就是0.4倍，这个就不多解释了，稍微懂点css的应该就明白。<br>
+<img src="https://cqboy.top/post-images/1715217396809.png" alt="" loading="lazy"><br>
+然后，大概1600多行，按图示的位置，也要相同修改，这个是隐藏效果下的宽度，不然显示隐藏的时候，会拉伸一下。<br>
+<img src="https://cqboy.top/post-images/1715217413010.png" alt="" loading="lazy"><br>
+到了这一步，你会发现，宽度变了，但是打开时尚模式，效果是这种：<br>
+<img src="https://cqboy.top/post-images/1715215167594.png" alt="" loading="lazy"><br>
+并不是我首图的那种图标居左的效果，但如果你喜欢这种布局，就不用看后面了。</p>
+<hr>
+<p>接来下，说说怎么把图标居左。细心的你会发现，高效模式下，它就是居左的，但是，高效模式没有圆角，所以，接下来，改圆角。<br>
+定位到文件：frame/window/mainwindow.cpp文件，找到如下代码：<br>
+<img src="https://cqboy.top/post-images/1715215756292.png" alt="" loading="lazy"><br>
+之前的判断是，按图所示修改，将之前的时尚模式才有圆角的条件去除。<br>
+然后，继续，修改下外边距，默认高效模式是没有悬浮的，需要改成跟时尚模式一样，悬浮起来，还是定位到：frame/util/multiscreenworker.cpp文件,找到getDockShowGeometry方法，修改margin和dockSize两个值，改成时尚模式一样，如图：<br>
+<img src="https://cqboy.top/post-images/1715216052520.png" alt="" loading="lazy"><br>
+同理，后面的getDockHideGeometry方法里，也需要改动，如图：<br>
+<img src="https://cqboy.top/post-images/1715216143176.png" alt="" loading="lazy"><br>
+ok，大功告成。然后，cd到源码根目录，执行编译(不建议使用debuild打包的编译方式)</p>
+<pre><code>cmake .
+make -j8
+sudo make install
+</code></pre>
+<p>去看看文件时间有没有变化：</p>
+<pre><code>stat /usr/bin/dde-dock
+</code></pre>
+<p>有变化就是成功了。然后</p>
+<pre><code>pkill -9 dde-dock
+</code></pre>
+<p>看效果吧~<br>
+ps：图标居中，就用时尚模式，图标居左，就用高效模式。</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/find-x-quan-wang-tong-pu-tong-ban-ben-jie-suo-xiang-guan-zi-yuan-lian-jie/">
+              <h3 class="post-title">
+                Find X 全网通普通版本解锁相关资源链接
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

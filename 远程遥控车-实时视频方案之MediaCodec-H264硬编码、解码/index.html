@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>远程遥控车-实时视频方案之MediaCodec.H264硬编码、解码 | zzq的个人主页</title>
+<link rel="shortcut icon" href="https://cqboy.top/favicon.ico?v=1758094628577">
+<link href="//cdn.staticfile.net/remixicon/2.3.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cqboy.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="远程遥控车-实时视频方案之MediaCodec.H264硬编码、解码 | zzq的个人主页 - Atom Feed" href="https://cqboy.top/atom.xml">
+<link rel="stylesheet" href="//fonts.font.im/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="其实我从一开始就比较倾向于硬编透传的，利用GPU编码不香吗。在网上找了大量资料之后，github上找到了一个不错的开源例子，具体地址忘了，sorry！这里面，我看到了、学到了我想要的，甚至现在完美的跑了起来。
+网上的一系列MediaCode..." />
+    <meta name="keywords" content="安卓" />
+    <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://cqboy.top">
+  <img class="avatar" src="https://cqboy.top/images/avatar.png?v=1758094628577" alt="">
+  </a>
+  <h1 class="site-title">
+    zzq的个人主页
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              远程遥控车-实时视频方案之MediaCodec.H264硬编码、解码
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-01-15
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://cqboy.top/JtW9dPWc18/" class="post-tag">
+                  # 安卓
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>其实我从一开始就比较倾向于硬编透传的，利用GPU编码不香吗。在网上找了大量资料之后，github上找到了一个不错的开源例子，具体地址忘了，sorry！这里面，我看到了、学到了我想要的，甚至现在完美的跑了起来。<br>
+网上的一系列MediaCodec配置就不说了，主要说说对比之前我的认知，发现的一些东西。首先是视频分帧，在编码器outputBuffer出数据后，找到sps(0x00 00 00 01 67) 对应十进制就是 0 0 0 1 103，找到IDR帧(0x0000000165) 对应十进制就是 0 0 0 1 101，然后再关IDR帧前面加上sps信息，发送给socket。<br>
+解码端，一开始是有问题的，后面想通了才发现挺好理解的。最开始我是直接读取到socket数据：</p>
+<pre><code>byte[] bytes = new byte[4096];
+int le = input.read(bytes);
+byte[] out = new byte[le];
+System.arraycopy(bytes, 0, out, 0, out.length);
+</code></pre>
+<p>然后放进解码器进行解码，发现还是不行，后来我仔细看那个例子，发现它在发送包之前，加入了一个自定义的头部，就是这个头部，每一次读取到一个完整的帧数据，才能丢进去解码，因为我们读取数据设置的缓冲是4096,一帧数据不止4096的话，那么每次就读取不完，需要等下一次循环，把上一次的一起copy进来，再寻找自定义头部，以头部做分割，下一帧之前的数据，全部放到解码器，然后本次剩余的数据，等待下一次循环，再放到前面去，又这样凑齐下一帧。解码是按帧解的，最后渲染到SurfaceView<br>
+ps：后面阅读了一下H264帧相关文章，其实人家每一帧开头都是00 00 00 01 ，所以可以按这个将数据包拆帧(人笨了，没办法。)<br>
+再一个就是，渲染最好是TextureView，因为这玩意儿操作性更高，可以移动，旋转等等<br>
+现在面临的下一个问题就是延迟，还在排查，目前延迟2s左右，排除手机性能问题。</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://cqboy.top/springboot定时任务不执行排查分析/">
+              <h3 class="post-title">
+                springboot定时任务不执行排查分析
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+渝ICP备2021010475号-1
+  <a class="rss" href="https://cqboy.top/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
